@@ -3,30 +3,25 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sarafi API Documentation</title>
+  <title>Sarafi — Credit Intelligence for Nigerian Lenders</title>
+  <meta name="description" content="Sarafi lets Nigerian digital lenders check cross-lender loan exposure before disbursing. A neutral API layer that stops stacking defaults before they happen." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --ink:      #0D0D0D;
-      --grey-1:   #3A3A3A;
-      --grey-2:   #6B6B6B;
-      --grey-3:   #A8A8A8;
-      --grey-4:   #DEDEDE;
-      --grey-5:   #F7F7F5;
-      --white:    #FFFFFF;
-      --blue:     #1A3A6B;
-      --blue-mid: #2452A0;
-      --code-bg:  #0F1724;
-      --code-border: #222222;
-      --green:    #16A34A;
-      --red:      #DC2626;
-      --amber:    #D97706;
-      --nav-w:    220px;
-      --code-w:   420px;
+      --black:   #0D0D0D;
+      --ink:     #1A1A1A;
+      --grey-1:  #3A3A3A;
+      --grey-2:  #6B6B6B;
+      --grey-3:  #A8A8A8;
+      --grey-4:  #DEDEDE;
+      --grey-5:  #F7F7F5;
+      --white:   #FFFFFF;
+      --blue:    #1A3A6B;
+      --blue-mid:#2452A0;
     }
 
     html { scroll-behavior: smooth; }
@@ -39,192 +34,244 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* ── TOP BAR ── */
-    .topbar {
+    .page-wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* ── NAV ── */
+    nav {
       position: fixed;
       top: 0; left: 0; right: 0;
-      height: 56px;
+      z-index: 100;
+      height: 64px;
       background: var(--white);
       border-bottom: 1px solid var(--grey-4);
+    }
+
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      height: 100%;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 28px;
-      z-index: 200;
+      padding: 0 64px;
     }
 
-    .topbar-left {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-    }
-
-    .topbar-logo {
+    .logo {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 20px;
+      font-size: 22px;
       font-weight: 600;
       color: var(--blue);
       text-decoration: none;
       letter-spacing: 0.04em;
     }
 
-    .topbar-tag {
-      font-size: 11px;
-      font-weight: 500;
-      color: var(--grey-3);
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      border-left: 1px solid var(--grey-4);
-      padding-left: 20px;
-    }
-
-    .topbar-right {
+    .nav-right {
       display: flex;
       align-items: center;
-      gap: 24px;
+      gap: 36px;
     }
-
-    .topbar-link {
-      font-size: 13px;
-      color: var(--grey-2);
-      text-decoration: none;
-    }
-    .topbar-link:hover { color: var(--ink); }
-
-    .topbar-cta {
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--white);
-      background: var(--blue);
-      padding: 7px 16px;
-      text-decoration: none;
-      letter-spacing: 0.04em;
-    }
-    .topbar-cta:hover { background: var(--blue-mid); }
-
-    /* ── LAYOUT ── */
-    .layout {
-      display: grid;
-      grid-template-columns: var(--nav-w) 1fr var(--code-w);
-      min-height: 100vh;
-      padding-top: 56px;
-    }
-
-    /* ── LEFT NAV ── */
-    .sidenav {
-      position: sticky;
-      top: 56px;
-      height: calc(100vh - 56px);
-      overflow-y: auto;
-      border-right: 1px solid var(--grey-4);
-      padding: 32px 0;
-    }
-
-    .nav-section-label {
-      font-size: 10px;
-      font-weight: 500;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--grey-3);
-      padding: 0 20px;
-      margin-bottom: 8px;
-      margin-top: 24px;
-    }
-    .nav-section-label:first-child { margin-top: 0; }
 
     .nav-link {
-      display: block;
       font-size: 13px;
       font-weight: 400;
       color: var(--grey-2);
       text-decoration: none;
-      padding: 6px 20px;
-      border-left: 2px solid transparent;
-      transition: color 0.15s, border-color 0.15s;
+      letter-spacing: 0.02em;
     }
     .nav-link:hover { color: var(--ink); }
-    .nav-link.active {
+
+    .nav-cta {
+      font-size: 13px;
+      font-weight: 500;
       color: var(--blue);
-      border-left-color: var(--blue);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      border-bottom: 1px solid var(--blue);
+      padding-bottom: 1px;
+    }
+    .nav-cta:hover { color: var(--blue-mid); border-color: var(--blue-mid); }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 160px 64px 120px;
+      max-width: 1100px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .hero-left {}
+
+    .hero-rule {
+      width: 32px;
+      height: 1px;
+      background: var(--blue);
+      margin-bottom: 28px;
+    }
+
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(44px, 5.5vw, 68px);
       font-weight: 500;
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      margin-bottom: 28px;
     }
 
-    .nav-method {
-      display: inline-block;
-      font-size: 10px;
-      font-weight: 500;
-      padding: 1px 5px;
-      border-radius: 3px;
-      margin-right: 6px;
-      font-family: 'Courier New', monospace;
-      letter-spacing: 0;
-    }
-    .nav-method.post { background: #DCFCE7; color: #15803D; }
-    .nav-method.delete { background: #FEE2E2; color: #DC2626; }
-
-    /* ── CENTER CONTENT ── */
-    .content {
-      padding: 56px 64px;
-      min-width: 0;
+    h1 em {
+      font-style: italic;
+      color: var(--blue);
     }
 
-    /* ── RIGHT CODE PANEL ── */
-    .code-panel {
-      background: var(--code-bg);
-      border-left: 1px solid var(--code-border);
-      position: sticky;
-      top: 56px;
-      height: calc(100vh - 56px);
-      overflow-y: auto;
-      padding: 56px 0;
-    }
-
-    .code-block {
-      padding: 0 28px 40px;
-    }
-
-    .code-block-label {
-      font-size: 10px;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: #555;
-      margin-bottom: 12px;
-      font-family: 'Inter', sans-serif;
-    }
-
-    .code-snippet {
-      background: #111;
-      border: 1px solid #222;
-      border-radius: 4px;
-      padding: 16px;
-      font-family: 'Courier New', monospace;
-      font-size: 12px;
+    .hero-sub {
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--grey-1);
       line-height: 1.8;
-      color: #CCC;
-      overflow-x: auto;
-      margin-bottom: 16px;
+      max-width: 400px;
+      margin-bottom: 44px;
     }
 
-    .c-comment { color: #555; }
-    .c-key     { color: #93C5FD; }
-    .c-str     { color: #86EFAC; }
-    .c-bool    { color: #86EFAC; }
-    .c-num     { color: #FCA5A5; }
-    .c-pun     { color: #555; }
-    .c-method  { color: #FCD34D; }
-    .c-url     { color: #C4B5FD; }
-    .c-header  { color: #FCA5A5; }
-    .c-val     { color: #86EFAC; }
+    .hero-actions {
+      display: flex;
+      gap: 28px;
+      align-items: center;
+    }
 
-    /* ── CONTENT ELEMENTS ── */
-    .section {
-      padding-bottom: 64px;
+    .btn-primary {
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--white);
+      background: var(--blue);
+      border: none;
+      padding: 13px 28px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .btn-primary:hover { background: var(--blue-mid); }
+
+    .btn-text {
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--grey-2);
+      text-decoration: none;
+      letter-spacing: 0.02em;
       border-bottom: 1px solid var(--grey-4);
-      margin-bottom: 64px;
-      scroll-margin-top: 80px;
+      padding-bottom: 1px;
     }
-    .section:last-child { border-bottom: none; }
+    .btn-text:hover { color: var(--ink); border-color: var(--grey-3); }
+
+    /* Hero right — API block */
+    .hero-right {
+      padding-bottom: 8px;
+    }
+
+    .api-label {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--grey-3);
+      margin-bottom: 14px;
+    }
+
+    .api-block {
+      border: 1px solid var(--grey-4);
+      background: var(--grey-5);
+    }
+
+    .api-bar {
+      padding: 10px 18px;
+      border-bottom: 1px solid var(--grey-4);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--white);
+    }
+
+    .api-endpoint {
+      font-family: 'Courier New', monospace;
+      font-size: 11px;
+      color: var(--grey-2);
+    }
+
+    .api-status {
+      font-size: 11px;
+      font-weight: 500;
+      color: #15803D;
+    }
+
+    .api-body {
+      padding: 22px 18px;
+      font-family: 'Courier New', monospace;
+      font-size: 12.5px;
+      line-height: 2;
+      color: var(--grey-1);
+    }
+
+    .json-key  { color: var(--blue); }
+    .json-str  { color: #15803D; }
+    .json-true { color: #15803D; }
+    .json-num  { color: #92400E; }
+    .json-pun  { color: var(--grey-3); }
+
+    /* ── RULE ── */
+    .page-rule {
+      height: 1px;
+      background: var(--grey-4);
+      margin: 0 64px;
+    }
+
+    /* ── STATS ── */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      margin: 0 64px;
+      border-bottom: 1px solid var(--grey-4);
+    }
+
+    .stat-item {
+      padding: 56px 0 56px;
+      border-right: 1px solid var(--grey-4);
+      padding-right: 48px;
+      padding-left: 48px;
+    }
+    .stat-item:first-child { padding-left: 0; border-left: none; }
+    .stat-item:last-child  { border-right: none; }
+
+    .stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 52px;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--grey-2);
+      line-height: 1.6;
+      max-width: 200px;
+      letter-spacing: 0.01em;
+    }
+
+    /* ── SECTIONS ── */
+    .section {
+      padding: 96px 64px;
+      max-width: 1100px;
+    }
 
     .section-eyebrow {
       font-size: 10px;
@@ -232,234 +279,278 @@
       letter-spacing: 0.14em;
       text-transform: uppercase;
       color: var(--grey-3);
-      margin-bottom: 16px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
     }
 
-    h1 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 36px;
-      font-weight: 500;
-      letter-spacing: -0.01em;
-      line-height: 1.1;
-      color: var(--ink);
-      margin-bottom: 16px;
+    .section-eyebrow::after {
+      content: '';
+      height: 1px;
+      width: 32px;
+      background: var(--grey-4);
+      display: inline-block;
     }
 
     h2 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 26px;
+      font-size: clamp(32px, 4vw, 48px);
       font-weight: 500;
       letter-spacing: -0.01em;
-      line-height: 1.15;
+      line-height: 1.1;
+      margin-bottom: 18px;
       color: var(--ink);
-      margin-bottom: 14px;
     }
 
-    h3 {
+    h2 em {
+      font-style: italic;
+      color: var(--blue);
+    }
+
+    .section-sub {
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--grey-1);
+      max-width: 520px;
+      line-height: 1.8;
+      margin-bottom: 64px;
+    }
+
+    /* ── HOW IT WORKS ── */
+    .steps {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border-top: 1px solid var(--grey-4);
+    }
+
+    .step {
+      padding: 40px 0;
+      padding-right: 48px;
+      border-bottom: 1px solid var(--grey-4);
+    }
+
+    .step:nth-child(even) {
+      padding-left: 48px;
+      padding-right: 0;
+      border-left: 1px solid var(--grey-4);
+    }
+
+    .step-num {
+      font-family: 'Cormorant Garamond', serif;
       font-size: 13px;
-      font-weight: 600;
+      font-weight: 400;
+      color: var(--grey-3);
+      letter-spacing: 0.08em;
+      margin-bottom: 18px;
+    }
+
+    .step h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 500;
+      margin-bottom: 10px;
       color: var(--ink);
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+    }
+
+    .step p {
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--grey-2);
+      line-height: 1.8;
+    }
+
+    /* ── WHY SARAFI — text layout, no cards ── */
+    .why-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border-top: 1px solid var(--grey-4);
+    }
+
+    .why-item {
+      padding: 36px 0;
+      padding-right: 64px;
+      border-bottom: 1px solid var(--grey-4);
+    }
+
+    .why-item:nth-child(even) {
+      padding-left: 64px;
+      padding-right: 0;
+      border-left: 1px solid var(--grey-4);
+    }
+
+    .why-item h3 {
+      font-size: 14px;
+      font-weight: 500;
       margin-bottom: 8px;
+      color: var(--ink);
       letter-spacing: 0.01em;
     }
 
-    p {
+    .why-item p {
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--grey-2);
+      line-height: 1.8;
+    }
+
+    /* ── PRIVACY ── */
+    .privacy-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 96px;
+      align-items: start;
+    }
+
+    .privacy-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      border-top: 1px solid var(--grey-4);
+    }
+
+    .privacy-list li {
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--grey-1);
+      line-height: 1.7;
+      padding: 18px 0;
+      border-bottom: 1px solid var(--grey-4);
+      display: flex;
+      gap: 16px;
+    }
+
+    .privacy-list li::before {
+      content: '—';
+      color: var(--grey-4);
+      flex-shrink: 0;
+    }
+
+    .hash-box {
+      border: 1px solid var(--grey-4);
+      background: var(--grey-5);
+    }
+
+    .hash-header {
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--grey-4);
+      background: var(--white);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--grey-3);
+    }
+
+    .hash-body {
+      padding: 20px;
+      font-family: 'Courier New', monospace;
+      font-size: 12px;
+    }
+
+    .hash-row {
+      margin-bottom: 20px;
+    }
+    .hash-row:last-child { margin-bottom: 0; }
+
+    .hash-row-label {
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--grey-3);
+      margin-bottom: 6px;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .hash-row-val { color: var(--grey-1); }
+    .hash-row-out { color: var(--blue); word-break: break-all; line-height: 1.7; }
+
+    .hash-divider {
+      height: 1px;
+      background: var(--grey-4);
+      margin: 16px 0;
+      position: relative;
+    }
+
+    .hash-divider-label {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: var(--grey-5);
+      padding: 0 10px;
+      font-family: 'Inter', sans-serif;
+      font-size: 10px;
+      color: var(--grey-3);
+      letter-spacing: 0.08em;
+      white-space: nowrap;
+    }
+
+    /* ── CTA ── */
+    .cta-section {
+      padding: 96px 64px;
+      border-top: 1px solid var(--grey-4);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 96px;
+      align-items: center;
+    }
+
+    .cta-section h2 { margin-bottom: 14px; }
+
+    .cta-right p {
       font-size: 14px;
       font-weight: 300;
       color: var(--grey-1);
       line-height: 1.8;
-      margin-bottom: 16px;
-      max-width: 560px;
+      margin-bottom: 32px;
     }
-    p:last-child { margin-bottom: 0; }
 
-    /* Endpoint header */
-    .endpoint-header {
+    .cta-note {
+      margin-top: 18px;
+      font-size: 12px;
+      color: var(--grey-3);
+      letter-spacing: 0.02em;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 32px 64px;
+      border-top: 1px solid var(--grey-4);
       display: flex;
       align-items: center;
-      gap: 12px;
-      background: var(--grey-5);
-      border: 1px solid var(--grey-4);
-      padding: 12px 16px;
-      margin-bottom: 24px;
-      font-family: 'Courier New', monospace;
-      font-size: 14px;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
     }
 
-    .method-badge {
-      font-size: 11px;
-      font-weight: 600;
-      padding: 3px 8px;
-      border-radius: 3px;
-      letter-spacing: 0.04em;
-    }
-    .method-badge.post   { background: #DCFCE7; color: #15803D; }
-    .method-badge.delete { background: #FEE2E2; color: #DC2626; }
-
-    .endpoint-path { color: var(--ink); }
-
-    /* Parameters table */
-    .param-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-bottom: 24px;
-      font-size: 13px;
-    }
-
-    .param-table th {
-      font-size: 10px;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--grey-3);
-      text-align: left;
-      padding: 8px 12px;
-      border-bottom: 1px solid var(--grey-4);
-      background: var(--grey-5);
-    }
-
-    .param-table td {
-      padding: 12px 12px;
-      border-bottom: 1px solid var(--grey-4);
-      vertical-align: top;
-      font-weight: 300;
-      color: var(--grey-1);
-      line-height: 1.6;
-    }
-
-    .param-name {
-      font-family: 'Courier New', monospace;
+    footer p {
       font-size: 12px;
-      color: var(--blue);
-      font-weight: 400;
-    }
-
-    .param-type {
-      font-family: 'Courier New', monospace;
-      font-size: 11px;
-      color: var(--grey-3);
-      display: block;
-      margin-top: 3px;
-    }
-
-    .required-badge {
-      font-size: 10px;
-      font-weight: 500;
-      color: #DC2626;
-      background: #FEE2E2;
-      padding: 1px 6px;
-      border-radius: 3px;
-      letter-spacing: 0.04em;
-    }
-
-    .optional-badge {
-      font-size: 10px;
-      color: var(--grey-3);
-      background: var(--grey-5);
-      padding: 1px 6px;
-      border-radius: 3px;
-    }
-
-    /* Response fields */
-    .response-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 13px;
-      margin-bottom: 24px;
-    }
-
-    .response-table th {
-      font-size: 10px;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--grey-3);
-      text-align: left;
-      padding: 8px 12px;
-      border-bottom: 1px solid var(--grey-4);
-      background: var(--grey-5);
-    }
-
-    .response-table td {
-      padding: 12px 12px;
-      border-bottom: 1px solid var(--grey-4);
-      vertical-align: top;
       font-weight: 300;
-      color: var(--grey-1);
-      line-height: 1.6;
-    }
-
-    /* Status codes */
-    .status-list {
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-      border: 1px solid var(--grey-4);
-      margin-bottom: 24px;
-    }
-
-    .status-row {
-      display: grid;
-      grid-template-columns: 80px 1fr;
-      border-bottom: 1px solid var(--grey-4);
-    }
-    .status-row:last-child { border-bottom: none; }
-
-    .status-code {
-      font-family: 'Courier New', monospace;
-      font-size: 13px;
-      font-weight: 500;
-      padding: 12px 16px;
-      border-right: 1px solid var(--grey-4);
-      background: var(--grey-5);
-    }
-    .status-code.ok     { color: #15803D; }
-    .status-code.err    { color: #DC2626; }
-    .status-code.warn   { color: #D97706; }
-
-    .status-desc {
-      font-size: 13px;
-      font-weight: 300;
-      color: var(--grey-1);
-      padding: 12px 16px;
-    }
-
-    /* Inline code */
-    code {
-      font-family: 'Courier New', monospace;
-      font-size: 12px;
-      background: var(--grey-5);
-      border: 1px solid var(--grey-4);
-      padding: 1px 5px;
-      color: var(--blue);
-    }
-
-    /* Callout */
-    .callout {
-      border-left: 2px solid var(--blue);
-      padding: 12px 16px;
-      background: #EFF6FF;
-      margin-bottom: 20px;
-      max-width: 560px;
-    }
-
-    .callout p {
-      font-size: 13px;
-      color: var(--blue);
-      margin: 0;
+      color: var(--grey-3);
+      letter-spacing: 0.02em;
     }
 
     /* ── RESPONSIVE ── */
-    @media (max-width: 1100px) {
-      :root { --code-w: 340px; }
-      .content { padding: 48px 40px; }
-    }
-
     @media (max-width: 860px) {
-      .layout { grid-template-columns: 1fr; }
-      .sidenav { display: none; }
-      .code-panel { display: none; }
-      .content { padding: 32px 24px; }
+      .nav-inner { padding: 0 24px; }
+      .hero { padding: 120px 24px 80px; grid-template-columns: 1fr; gap: 48px; }
+      .page-rule { margin: 0 24px; }
+      .stats { margin: 0 24px; grid-template-columns: 1fr; }
+      .stat-item { border-right: none; padding-left: 0; padding-right: 0; padding-top: 32px; padding-bottom: 32px; }
+      .section { padding: 64px 24px; }
+      .steps { grid-template-columns: 1fr; }
+      .step:nth-child(even) { border-left: none; padding-left: 0; }
+      .why-grid { grid-template-columns: 1fr; }
+      .why-item:nth-child(even) { border-left: none; padding-left: 0; }
+      .privacy-grid { grid-template-columns: 1fr; gap: 40px; }
+      .cta-section { padding: 64px 24px; grid-template-columns: 1fr; gap: 40px; }
+      footer { padding: 28px 24px; }
+      .nav-link { display: none; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -469,545 +560,221 @@
 </head>
 <body>
 
-<!-- TOP BAR -->
-<div class="topbar">
-  <div class="topbar-left">
-    <a href="https://sarafi.ng" class="topbar-logo">Sarafi</a>
-    <span class="topbar-tag">API Documentation</span>
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="logo">Sarafi</a>
+    <div class="nav-right">
+      <a href="https://api.sarafi.ng/docs" target="_blank" class="nav-link">API Documentation</a>
+      <a href="mailto:hello@sarafi.ng" class="nav-cta">Request Access</a>
+    </div>
   </div>
-  <div class="topbar-right">
-    <a href="https://sarafi.ng" class="topbar-link">Home</a>
-    <a href="mailto:hello@sarafi.ng" class="topbar-cta">Request Access</a>
+</nav>
+
+<div class="page-wrap">
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-left">
+    <div class="hero-rule"></div>
+    <h1>Your applicant borrowed from <em>three other lenders</em> yesterday.</h1>
+    <p class="hero-sub">
+      Sarafi is a neutral API layer for Nigerian digital lenders.
+      Before you disburse, check whether an applicant has active loans
+      or recorded defaults at other lenders in the network.
+    </p>
+    <div class="hero-actions">
+      <a href="mailto:hello@sarafi.ng" class="btn-primary">Request pilot access</a>
+      <a href="https://api.sarafi.ng/docs" target="_blank" class="btn-text">View API documentation</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="api-label">Live API response</div>
+    <div class="api-block">
+      <div class="api-bar">
+        <span class="api-endpoint">POST /v1/check</span>
+        <span class="api-status">200 OK</span>
+      </div>
+      <div class="api-body">
+        <span class="json-pun">{</span><br/>
+        &nbsp;&nbsp;<span class="json-key">"is_flagged"</span><span class="json-pun">: </span><span class="json-true">true</span><span class="json-pun">,</span><br/>
+        &nbsp;&nbsp;<span class="json-key">"flag_count"</span><span class="json-pun">: </span><span class="json-num">2</span><span class="json-pun">,</span><br/>
+        &nbsp;&nbsp;<span class="json-key">"lender_count"</span><span class="json-pun">: </span><span class="json-num">2</span><span class="json-pun">,</span><br/>
+        &nbsp;&nbsp;<span class="json-key">"has_active_loan"</span><span class="json-pun">: </span><span class="json-true">true</span><span class="json-pun">,</span><br/>
+        &nbsp;&nbsp;<span class="json-key">"has_default"</span><span class="json-pun">: </span><span class="json-true">true</span><span class="json-pun">,</span><br/>
+        &nbsp;&nbsp;<span class="json-key">"resolved_loans"</span><span class="json-pun">: </span><span class="json-num">1</span><span class="json-pun">,</span><br/>
+        &nbsp;&nbsp;<span class="json-key">"days_since_last_flag"</span><span class="json-pun">: </span><span class="json-num">3</span><span class="json-pun">,</span><br/>
+        &nbsp;&nbsp;<span class="json-key">"checked_at"</span><span class="json-pun">: </span><span class="json-str">"2026-07-20T10:31:04Z"</span><br/>
+        <span class="json-pun">}</span>
+      </div>
+    </div>
   </div>
 </div>
 
-<!-- THREE COLUMN LAYOUT -->
-<div class="layout">
+<div class="page-rule"></div>
 
-  <!-- LEFT NAV -->
-  <nav class="sidenav">
-    <div class="nav-section-label">Overview</div>
-    <a href="#introduction" class="nav-link active">Introduction</a>
-    <a href="#authentication" class="nav-link">Authentication</a>
-    <a href="#bvn-privacy" class="nav-link">BVN Privacy</a>
-    <a href="#errors" class="nav-link">Errors</a>
-
-    <div class="nav-section-label">Endpoints</div>
-    <a href="#check" class="nav-link">
-      <span class="nav-method post">POST</span>Check a BVN
-    </a>
-    <a href="#report" class="nav-link">
-      <span class="nav-method post">POST</span>Report a flag
-    </a>
-    <a href="#resolve" class="nav-link">
-      <span class="nav-method post">POST</span>Resolve flags
-    </a>
-    <a href="#health" class="nav-link">
-      <span class="nav-method post" style="background:#F3F4F6;color:#6B7280;">GET</span>Health check
-    </a>
-  </nav>
-
-  <!-- CENTER CONTENT -->
-  <main class="content">
-
-    <!-- INTRODUCTION -->
-    <div class="section" id="introduction">
-      <div class="section-eyebrow">Overview</div>
-      <h1>Sarafi API</h1>
-      <p>
-        Sarafi is a neutral credit intelligence layer for Nigerian digital lenders.
-        Before disbursing, call the check endpoint with an applicant's BVN to find out
-        whether they have active loans or recorded defaults at other lenders in the network.
-      </p>
-      <p>
-        The API is a standard REST interface. All requests and responses use JSON.
-        All endpoints are served over HTTPS at:
-      </p>
-      <div class="endpoint-header" style="margin-top: 16px;">
-        <span style="font-size:13px; color: var(--grey-2);">Base URL</span>
-        <span class="endpoint-path">https://api.sarafi.ng</span>
-      </div>
-      <p>
-        The API is currently in a closed pilot. To obtain an API key, contact
-        <a href="mailto:hello@sarafi.ng" style="color: var(--blue);">hello@sarafi.ng</a>.
-      </p>
-    </div>
-
-    <!-- AUTHENTICATION -->
-    <div class="section" id="authentication">
-      <h2>Authentication</h2>
-      <p>
-        All endpoints require an API key passed in the <code>Authorization</code> header
-        as a Bearer token. Your API key is issued when you join the pilot programme.
-      </p>
-      <div class="callout">
-        <p>Your API key carries full access to your account. Never expose it in client-side code, public repositories, or logs.</p>
-      </div>
-      <h3>Request header</h3>
-      <table class="param-table">
-        <thead>
-          <tr>
-            <th>Header</th>
-            <th>Value</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><span class="param-name">Authorization</span></td>
-            <td><code>Bearer sarafi_your_api_key_here</code></td>
-          </tr>
-        </tbody>
-      </table>
-      <p>
-        If the key is missing or invalid, the API returns <code>401 Unauthorized</code>.
-        If your account is suspended, it returns <code>403 Forbidden</code>.
-      </p>
-    </div>
-
-    <!-- BVN PRIVACY -->
-    <div class="section" id="bvn-privacy">
-      <h2>BVN Privacy</h2>
-      <p>
-        You send raw BVN numbers to the API. Sarafi hashes every BVN using SHA-256
-        with a secret pepper immediately on receipt — the raw number never enters the
-        database. This means Sarafi cannot reveal BVN numbers it does not store.
-      </p>
-      <p>
-        You can verify this independently: hash any BVN you submitted and compare it
-        to the <code>bvn_hash</code> returned in the report response. The algorithm
-        is <code>SHA-256(SECRET_KEY + ":" + bvn)</code>.
-      </p>
-      <p>
-        When you query <code>/v1/check</code>, you receive only a signal derived from
-        aggregate network flags. The identities of lenders who submitted those flags
-        are never returned.
-      </p>
-    </div>
-
-    <!-- ERRORS -->
-    <div class="section" id="errors">
-      <h2>Errors</h2>
-      <p>
-        All errors return a JSON object with an <code>error</code> field and an
-        optional <code>detail</code> field describing the problem.
-      </p>
-      <div class="status-list">
-        <div class="status-row">
-          <div class="status-code ok">200</div>
-          <div class="status-desc">Request succeeded.</div>
-        </div>
-        <div class="status-row">
-          <div class="status-code ok">201</div>
-          <div class="status-desc">Resource created successfully.</div>
-        </div>
-        <div class="status-row">
-          <div class="status-code warn">401</div>
-          <div class="status-desc">Missing or invalid API key.</div>
-        </div>
-        <div class="status-row">
-          <div class="status-code warn">403</div>
-          <div class="status-desc">Account suspended. Contact support.</div>
-        </div>
-        <div class="status-row">
-          <div class="status-code err">422</div>
-          <div class="status-desc">Validation error. The request body is malformed or a required field is missing. Check the <code>detail</code> field for specifics.</div>
-        </div>
-        <div class="status-row">
-          <div class="status-code err">500</div>
-          <div class="status-desc">Unexpected server error. Contact support@sarafi.ng if this persists.</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- CHECK ENDPOINT -->
-    <div class="section" id="check">
-      <div class="section-eyebrow">Endpoints</div>
-      <h2>Check a BVN</h2>
-      <div class="endpoint-header">
-        <span class="method-badge post">POST</span>
-        <span class="endpoint-path">/v1/check</span>
-      </div>
-      <p>
-        Submit an applicant's BVN before disbursing. Sarafi checks it against every
-        active flag in the network and returns a risk signal. This is the core
-        product endpoint — call it once per loan application, before funds are released.
-      </p>
-      <p>
-        The response tells you whether the BVN is flagged, how many flags exist,
-        whether any flag is an active loan or a
-        recorded default. You make the final lending decision.
-      </p>
-
-      <h3>Request body</h3>
-      <table class="param-table">
-        <thead>
-          <tr><th>Field</th><th>Type</th><th>Required</th><th>Description</th></tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><span class="param-name">bvn</span></td>
-            <td><span class="param-type">string</span></td>
-            <td><span class="required-badge">Required</span></td>
-            <td>The applicant's 11-digit Bank Verification Number. Must be exactly 11 numeric digits.</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <h3>Response fields</h3>
-      <table class="response-table">
-        <thead>
-          <tr><th>Field</th><th>Type</th><th>Description</th></tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><span class="param-name">is_flagged</span><span class="param-type">boolean</span></td>
-            <td></td>
-            <td>True if this BVN has one or more active flags in the network.</td>
-          </tr>
-          <tr>
-            <td><span class="param-name">flag_count</span><span class="param-type">integer</span></td>
-            <td></td>
-            <td>Total number of active flags across all lenders in the network.</td>
-          </tr>
-          <tr>
-            <td><span class="param-name">lender_count</span><span class="param-type">integer</span></td>
-            <td></td>
-            <td>Number of <strong>distinct lenders</strong> who have submitted active flags for this BVN. More meaningful than <code>flag_count</code> alone — 3 flags from 1 lender is very different from 3 flags from 3 separate lenders.</td>
-          </tr>
-          <tr>
-            <td><span class="param-name">has_active_loan</span><span class="param-type">boolean</span></td>
-            <td></td>
-            <td>True if this BVN has an active loan recorded elsewhere in the network right now.</td>
-          </tr>
-          <tr>
-            <td><span class="param-name">has_default</span><span class="param-type">boolean</span></td>
-            <td></td>
-            <td>True if this BVN has a recorded default in the network.</td>
-          </tr>
-          <tr>
-            <td><span class="param-name">resolved_loans</span><span class="param-type">integer</span></td>
-            <td></td>
-            <td>Count of active_loan flags that have been resolved (repaid) for this BVN across the network. A positive creditworthiness signal — a borrower who consistently repays builds a record here.</td>
-          </tr>
-          <tr>
-            <td><span class="param-name">days_since_last_flag</span><span class="param-type">integer | null</span></td>
-            <td></td>
-            <td>How many days ago the most recent active flag was created. Null if not flagged. A default from 2 years ago carries different weight than one from last week.</td>
-          </tr>
-          <tr>
-            <td><span class="param-name">checked_at</span><span class="param-type">string</span></td>
-            <td></td>
-            <td>ISO 8601 timestamp of when this check was performed (UTC).</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <!-- REPORT ENDPOINT -->
-    <div class="section" id="report">
-      <h2>Report a flag</h2>
-      <div class="endpoint-header">
-        <span class="method-badge post">POST</span>
-        <span class="endpoint-path">/v1/report</span>
-      </div>
-      <p>
-        Submit a BVN flag to the network. Call this when you identify a defaulter
-        or issue a new loan. Every flag you contribute improves the signal quality
-        for every other lender in the network.
-      </p>
-      <p>
-        The <code>reason</code> field is stored for your internal records only.
-        It is never returned to other lenders through the API.
-      </p>
-
-      <h3>Request body</h3>
-      <table class="param-table">
-        <thead>
-          <tr><th>Field</th><th>Type</th><th>Required</th><th>Description</th></tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><span class="param-name">bvn</span></td>
-            <td><span class="param-type">string</span></td>
-            <td><span class="required-badge">Required</span></td>
-            <td>The 11-digit BVN of the borrower being reported.</td>
-          </tr>
-          <tr>
-            <td><span class="param-name">record_type</span></td>
-            <td><span class="param-type">string</span></td>
-            <td><span class="required-badge">Required</span></td>
-            <td><code>active_loan</code> — borrower has an open loan with you now. <code>defaulter</code> — borrower has failed to repay.</td>
-          </tr>
-          <tr>
-            <td><span class="param-name">reason</span></td>
-            <td><span class="param-type">string</span></td>
-            <td><span class="optional-badge">Optional</span></td>
-            <td>Internal note. Max 500 characters. Never shared with other lenders.</td>
-          </tr>
-          <tr>
-            <td><span class="param-name">expires_at</span></td>
-            <td><span class="param-type">string</span></td>
-            <td><span class="required-badge">Required for active_loan</span></td>
-            <td>ISO 8601 datetime (UTC). <strong>Required for <code>active_loan</code></strong> — set to the loan term end date so the flag clears automatically. Optional for <code>defaulter</code> — Sarafi sets an automatic expiry based on the borrower's history (18 months for a first default, 36 months for repeat defaulters).</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <h3>Response fields</h3>
-      <table class="response-table">
-        <thead>
-          <tr><th>Field</th><th>Type</th><th>Description</th></tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><span class="param-name">record_id</span><span class="param-type">string</span></td>
-            <td></td>
-            <td>Unique identifier for this specific flag. Can be used for precise single-flag resolution via <code>DELETE /v1/report/{record_id}</code>.</td>
-          </tr>
-          <tr>
-            <td><span class="param-name">bvn_hash</span><span class="param-type">string</span></td>
-            <td></td>
-            <td>The SHA-256 hash of the BVN stored. Confirms the raw BVN was not stored.</td>
-          </tr>
-          <tr>
-            <td><span class="param-name">record_type</span><span class="param-type">string</span></td>
-            <td></td>
-            <td>The type of flag recorded: <code>active_loan</code> or <code>defaulter</code>.</td>
-          </tr>
-          <tr>
-            <td><span class="param-name">expires_at</span><span class="param-type">string</span></td>
-            <td></td>
-            <td>When this flag will auto-expire. For <code>active_loan</code>, this is what you provided. For <code>defaulter</code>, this is the server-computed expiry.</td>
-          </tr>
-          <tr>
-            <td><span class="param-name">created_at</span><span class="param-type">string</span></td>
-            <td></td>
-            <td>ISO 8601 timestamp of when the flag was recorded (UTC).</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <!-- RESOLVE BY BVN — PRIMARY -->
-    <div class="section" id="resolve">
-      <h2>Resolve flags by BVN</h2>
-      <div class="endpoint-header">
-        <span class="method-badge post">POST</span>
-        <span class="endpoint-path">/v1/report/resolve</span>
-      </div>
-      <p>
-        Resolve your active flags for a BVN when a loan is repaid. This is the
-        <strong>primary resolution method</strong> — you know the borrower's BVN at
-        repayment time and do not need to retrieve a <code>record_id</code> from
-        when the flag was originally submitted.
-      </p>
-      <p>
-        Optionally pass <code>record_type</code> to resolve only flags of that type.
-        If omitted, all your active flags for this BVN are resolved. You can only
-        resolve flags that your account submitted.
-      </p>
-
-      <h3>Request body</h3>
-      <table class="param-table">
-        <thead>
-          <tr><th>Field</th><th>Type</th><th>Required</th><th>Description</th></tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><span class="param-name">bvn</span></td>
-            <td><span class="param-type">string</span></td>
-            <td><span class="required-badge">Required</span></td>
-            <td>The 11-digit BVN whose flags you want to resolve.</td>
-          </tr>
-          <tr>
-            <td><span class="param-name">record_type</span></td>
-            <td><span class="param-type">string</span></td>
-            <td><span class="optional-badge">Optional</span></td>
-            <td>If provided, only resolve flags of this type (<code>active_loan</code> or <code>defaulter</code>). If omitted, all your active flags for this BVN are resolved.</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <h3>Response fields</h3>
-      <table class="response-table">
-        <thead>
-          <tr><th>Field</th><th>Type</th><th>Description</th></tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><span class="param-name">resolved_count</span><span class="param-type">integer</span></td>
-            <td></td>
-            <td>Number of flags resolved in this call.</td>
-          </tr>
-          <tr>
-            <td><span class="param-name">bvn_hash</span><span class="param-type">string</span></td>
-            <td></td>
-            <td>Hash of the BVN that was resolved.</td>
-          </tr>
-          <tr>
-            <td><span class="param-name">resolved_at</span><span class="param-type">string</span></td>
-            <td></td>
-            <td>ISO 8601 timestamp of when the flags were resolved (UTC).</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <div class="callout" style="margin-top: 20px;">
-        <p>To resolve a single specific flag by its <code>record_id</code>, use <code>DELETE /v1/report/{record_id}</code> instead. This is useful when a BVN has multiple active flags and you only want to clear one.</p>
-      </div>
-    </div>
-
-    <!-- HEALTH -->
-    <div class="section" id="health">
-      <h2>Health check</h2>
-      <div class="endpoint-header">
-        <span class="method-badge post" style="background:#F3F4F6;color:#6B7280;">GET</span>
-        <span class="endpoint-path">/health</span>
-      </div>
-      <p>
-        Returns <code>200 OK</code> if the API is operational. No authentication required.
-        Use this endpoint to monitor uptime or verify connectivity before making
-        authenticated calls.
-      </p>
-    </div>
-
-  </main>
-
-  <!-- RIGHT CODE PANEL -->
-  <aside class="code-panel">
-
-    <!-- Authentication example -->
-    <div class="code-block">
-      <div class="code-block-label">Authentication</div>
-      <div class="code-snippet">
-<span class="c-comment"># All requests require this header</span>
-<span class="c-header">Authorization</span>: Bearer <span class="c-val">sarafi_your_key_here</span>
-      </div>
-    </div>
-
-    <!-- Check request -->
-    <div class="code-block">
-      <div class="code-block-label">Check — Request</div>
-      <div class="code-snippet">
-<span class="c-method">POST</span> <span class="c-url">https://api.sarafi.ng/v1/check</span>
-
-<span class="c-pun">{</span>
-  <span class="c-key">"bvn"</span><span class="c-pun">: </span><span class="c-str">"22190341827"</span>
-<span class="c-pun">}</span>
-      </div>
-
-      <div class="code-block-label">Check — Response</div>
-      <div class="code-snippet">
-<span class="c-pun">{</span>
-  <span class="c-key">"is_flagged"</span><span class="c-pun">: </span><span class="c-bool">true</span><span class="c-pun">,</span>
-  <span class="c-key">"flag_count"</span><span class="c-pun">: </span><span class="c-num">2</span><span class="c-pun">,</span>
-  <span class="c-key">"lender_count"</span><span class="c-pun">: </span><span class="c-num">2</span><span class="c-pun">,</span>
-  <span class="c-key">"has_active_loan"</span><span class="c-pun">: </span><span class="c-bool">true</span><span class="c-pun">,</span>
-  <span class="c-key">"has_default"</span><span class="c-pun">: </span><span class="c-bool">true</span><span class="c-pun">,</span>
-  <span class="c-key">"resolved_loans"</span><span class="c-pun">: </span><span class="c-num">1</span><span class="c-pun">,</span>
-  <span class="c-key">"days_since_last_flag"</span><span class="c-pun">: </span><span class="c-num">3</span><span class="c-pun">,</span>
-  <span class="c-key">"checked_at"</span><span class="c-pun">: </span><span class="c-str">"2026-07-20T10:31:04Z"</span>
-<span class="c-pun">}</span>
-      </div>
-    </div>
-
-    <!-- Report active loan -->
-    <div class="code-block">
-      <div class="code-block-label">Report active loan — Request</div>
-      <div class="code-snippet">
-<span class="c-method">POST</span> <span class="c-url">https://api.sarafi.ng/v1/report</span>
-
-<span class="c-pun">{</span>
-  <span class="c-key">"bvn"</span><span class="c-pun">: </span><span class="c-str">"22190341827"</span><span class="c-pun">,</span>
-  <span class="c-key">"record_type"</span><span class="c-pun">: </span><span class="c-str">"active_loan"</span><span class="c-pun">,</span>
-  <span class="c-key">"expires_at"</span><span class="c-pun">: </span><span class="c-str">"2026-10-20T00:00:00Z"</span>
-<span class="c-pun">}</span>
-      </div>
-
-      <div class="code-block-label">Report defaulter — Request</div>
-      <div class="code-snippet">
-<span class="c-method">POST</span> <span class="c-url">https://api.sarafi.ng/v1/report</span>
-
-<span class="c-pun">{</span>
-  <span class="c-key">"bvn"</span><span class="c-pun">: </span><span class="c-str">"22190341827"</span><span class="c-pun">,</span>
-  <span class="c-key">"record_type"</span><span class="c-pun">: </span><span class="c-str">"defaulter"</span><span class="c-pun">,</span>
-  <span class="c-key">"reason"</span><span class="c-pun">: </span><span class="c-str">"Loan unpaid after 90 days"</span>
-<span class="c-pun">}</span>
-      </div>
-
-      <div class="code-block-label">Report — Response</div>
-      <div class="code-snippet">
-<span class="c-pun">{</span>
-  <span class="c-key">"record_id"</span><span class="c-pun">: </span><span class="c-str">"3f2a1b4c-..."</span><span class="c-pun">,</span>
-  <span class="c-key">"bvn_hash"</span><span class="c-pun">: </span><span class="c-str">"a3f8c2d1..."</span><span class="c-pun">,</span>
-  <span class="c-key">"record_type"</span><span class="c-pun">: </span><span class="c-str">"defaulter"</span><span class="c-pun">,</span>
-  <span class="c-key">"expires_at"</span><span class="c-pun">: </span><span class="c-str">"2028-01-20T10:31:04Z"</span><span class="c-pun">,</span>
-  <span class="c-key">"created_at"</span><span class="c-pun">: </span><span class="c-str">"2026-07-20T10:31:04Z"</span>
-<span class="c-pun">}</span>
-      </div>
-    </div>
-
-    <!-- Resolve by BVN — primary -->
-    <div class="code-block">
-      <div class="code-block-label">Resolve — Request (primary)</div>
-      <div class="code-snippet">
-<span class="c-method">POST</span> <span class="c-url">https://api.sarafi.ng/v1/report/resolve</span>
-
-<span class="c-pun">{</span>
-  <span class="c-key">"bvn"</span><span class="c-pun">: </span><span class="c-str">"22190341827"</span>
-<span class="c-pun">}</span>
-      </div>
-
-      <div class="code-block-label">Resolve — Response</div>
-      <div class="code-snippet">
-<span class="c-pun">{</span>
-  <span class="c-key">"resolved_count"</span><span class="c-pun">: </span><span class="c-num">1</span><span class="c-pun">,</span>
-  <span class="c-key">"bvn_hash"</span><span class="c-pun">: </span><span class="c-str">"a3f8c2d1..."</span><span class="c-pun">,</span>
-  <span class="c-key">"resolved_at"</span><span class="c-pun">: </span><span class="c-str">"2026-07-20T14:22:01Z"</span>
-<span class="c-pun">}</span>
-      </div>
-    </div>
-
-    <!-- Health -->
-    <div class="code-block">
-      <div class="code-block-label">Health check</div>
-      <div class="code-snippet">
-<span class="c-method">GET</span> <span class="c-url">https://api.sarafi.ng/health</span>
-
-<span class="c-comment"># Response</span>
-<span class="c-pun">{</span>
-  <span class="c-key">"status"</span><span class="c-pun">: </span><span class="c-str">"ok"</span><span class="c-pun">,</span>
-  <span class="c-key">"timestamp"</span><span class="c-pun">: </span><span class="c-str">"2026-07-20T10:31:04Z"</span><span class="c-pun">,</span>
-  <span class="c-key">"version"</span><span class="c-pun">: </span><span class="c-str">"1.0.0"</span>
-<span class="c-pun">}</span>
-      </div>
-    </div>
-
-  </aside>
-
+<!-- STATS -->
+<div class="stats">
+  <div class="stat-item">
+    <div class="stat-num">460+</div>
+    <div class="stat-label">Approved digital lenders operating in Nigeria</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">8.03%</div>
+    <div class="stat-label">Current NPL ratio — above the 5% CBN regulatory ceiling</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">$118B</div>
+    <div class="stat-label">Estimated credit gap across the Nigerian economy</div>
+  </div>
 </div>
 
-<script>
-  // Highlight active nav link on scroll
-  const sections = document.querySelectorAll('.section');
-  const navLinks = document.querySelectorAll('.nav-link');
+<!-- HOW IT WORKS -->
+<div class="section">
+  <div class="section-eyebrow">How it works</div>
+  <h2>A single check before every disbursement</h2>
+  <p class="section-sub">
+    Sarafi sits alongside your existing underwriting process.
+    It returns one thing: whether this applicant has active loans or
+    defaults recorded at other lenders in the network, right now.
+  </p>
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const id = entry.target.id;
-        navLinks.forEach(link => {
-          link.classList.remove('active');
-          if (link.getAttribute('href') === '#' + id) {
-            link.classList.add('active');
-          }
-        });
-      }
-    });
-  }, { rootMargin: '-20% 0px -60% 0px' });
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">01</div>
+      <h3>Integrate once</h3>
+      <p>One REST endpoint. One API key. Full documentation and a live test environment available at api.sarafi.ng/docs. No proprietary SDK or special tooling required.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <h3>Send the BVN before disbursing</h3>
+      <p>When an applicant submits, your system calls POST /v1/check with their BVN. The number is hashed immediately on receipt. Sarafi never stores it.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <h3>Receive a real-time signal</h3>
+      <p>Sarafi checks the BVN against every active flag in the network and returns whether the applicant is flagged, how many flags exist, how many distinct lenders have flagged them, whether any flag is an active loan or a recorded default, and how many loans have been repaid on record. You make the final lending decision.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">04</div>
+      <h3>Contribute to the network</h3>
+      <p>Report defaulters via POST /v1/report. Every lender who contributes improves the signal for every other member. Value compounds with scale.</p>
+    </div>
+  </div>
+</div>
 
-  sections.forEach(s => observer.observe(s));
-</script>
+<div class="page-rule"></div>
+
+<!-- WHY SARAFI -->
+<div class="section">
+  <div class="section-eyebrow">Why Sarafi</div>
+  <h2>The signal bureaus do not provide</h2>
+  <p class="section-sub">
+    Bureau checks cover formal bank lending. SMS scoring covers your own app's history.
+    Neither tells you whether this applicant opened three other loan applications
+    in the past two weeks. Sarafi answers that question.
+  </p>
+
+  <div class="why-grid">
+    <div class="why-item">
+      <h3>Real-time cross-lender exposure</h3>
+      <p>Check whether an applicant has active loans or defaults at other network lenders at the moment they apply — not days later when a bureau refreshes.</p>
+    </div>
+    <div class="why-item">
+      <h3>Neutral infrastructure</h3>
+      <p>No lender sees another's data. Sarafi is the trusted middle layer. Competing lenders share data with Sarafi, not with each other.</p>
+    </div>
+    <div class="why-item">
+      <h3>A network that compounds</h3>
+      <p>Every new lender who joins improves the signal for every existing member. Early partners accumulate a data advantage that grows over time.</p>
+    </div>
+    <div class="why-item">
+      <h3>Complements your existing stack</h3>
+      <p>Sarafi does not replace your bureau check or SMS scoring. It adds the one signal they cannot supply: current exposure across other apps.</p>
+    </div>
+    <div class="why-item">
+      <h3>Built for regulatory scrutiny</h3>
+      <p>Every check and every report is logged immutably. An audit trail that holds up to compliance review, from the first day of operation.</p>
+    </div>
+    <div class="why-item">
+      <h3>Minimal engineering lift</h3>
+      <p>A standard REST API with full documentation and a live test environment. The integration surface is a single endpoint with a straightforward JSON request and response.</p>
+    </div>
+  </div>
+</div>
+
+<div class="page-rule"></div>
+
+<!-- PRIVACY -->
+<div class="section">
+  <div class="section-eyebrow">Privacy</div>
+  <h2>Your portfolio is never visible to competitors</h2>
+
+  <div class="privacy-grid">
+    <div>
+      <p class="section-sub" style="margin-bottom: 0;">
+        The reason lenders share data with Sarafi rather than directly with each other
+        is structural. The system is designed so that sharing reveals nothing
+        a competitor could act on.
+      </p>
+      <ul class="privacy-list" style="margin-top: 32px;">
+        <li>BVNs are SHA-256 hashed with a secret key on receipt. Raw numbers never enter the database.</li>
+        <li>Querying lenders receive only a signal — never the identity of lenders who submitted flags.</li>
+        <li>Reason notes submitted with a flag are never returned through the API.</li>
+        <li>Lenders can only resolve flags they themselves submitted.</li>
+        <li>Every API call is logged immutably for accountability and compliance.</li>
+      </ul>
+    </div>
+
+    <div>
+      <div class="hash-box">
+        <div class="hash-header">BVN handling — what Sarafi stores</div>
+        <div class="hash-body">
+          <div class="hash-row">
+            <div class="hash-row-label">Received</div>
+            <div class="hash-row-val">22190341827</div>
+          </div>
+          <div class="hash-divider">
+            <span class="hash-divider-label">SHA-256 + secret key</span>
+          </div>
+          <div class="hash-row">
+            <div class="hash-row-label">Stored</div>
+            <div class="hash-row-out">a3f8c2d19e4b7a6f0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2a3</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta-section">
+  <div>
+    <div class="section-eyebrow">Pilot programme</div>
+    <h2>Now accepting pilot applications</h2>
+  </div>
+  <div class="cta-right">
+    <p>
+      Sarafi's pilot programme is open to a limited number of digital lenders.
+      Participants receive full API access at no cost for three months, with no
+      commitment beyond the pilot period. Your data is never shared with other
+      lenders in the network. If the signal does not reduce your default rate
+      on flagged applicants, you walk away having lost nothing.
+    </p>
+    <a href="mailto:hello@sarafi.ng" class="btn-primary">Request pilot access</a>
+    <div class="cta-note">Or write to us directly at hello@sarafi.ng</div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <a href="/" class="logo">Sarafi</a>
+  <p>Credit intelligence infrastructure for Nigerian digital lenders.</p>
+  <p>Built in Nigeria &nbsp;&middot;&nbsp; &copy; 2026 Sarafi</p>
+</footer>
+
+</div><!-- end page-wrap -->
 
 </body>
 </html>
