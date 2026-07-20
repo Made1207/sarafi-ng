@@ -34,18 +34,29 @@
       -webkit-font-smoothing: antialiased;
     }
 
+    .page-wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
     /* ── NAV ── */
     nav {
       position: fixed;
       top: 0; left: 0; right: 0;
       z-index: 100;
       height: 64px;
+      background: var(--white);
+      border-bottom: 1px solid var(--grey-4);
+    }
+
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      height: 100%;
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding: 0 64px;
-      background: var(--white);
-      border-bottom: 1px solid var(--grey-4);
     }
 
     .logo {
@@ -90,7 +101,7 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 80px;
-      align-items: end;
+      align-items: start;
     }
 
     .hero-left {}
@@ -526,7 +537,7 @@
 
     /* ── RESPONSIVE ── */
     @media (max-width: 860px) {
-      nav { padding: 0 24px; }
+      .nav-inner { padding: 0 24px; }
       .hero { padding: 120px 24px 80px; grid-template-columns: 1fr; gap: 48px; }
       .page-rule { margin: 0 24px; }
       .stats { margin: 0 24px; grid-template-columns: 1fr; }
@@ -551,12 +562,16 @@
 
 <!-- NAV -->
 <nav>
-  <a href="/" class="logo">Sarafi</a>
-  <div class="nav-right">
-    <a href="https://api.sarafi.ng/docs" target="_blank" class="nav-link">API Documentation</a>
-    <a href="mailto:hello@sarafi.ng" class="nav-cta">Request Access</a>
+  <div class="nav-inner">
+    <a href="/" class="logo">Sarafi</a>
+    <div class="nav-right">
+      <a href="https://api.sarafi.ng/docs" target="_blank" class="nav-link">API Documentation</a>
+      <a href="mailto:hello@sarafi.ng" class="nav-cta">Request Access</a>
+    </div>
   </div>
 </nav>
+
+<div class="page-wrap">
 
 <!-- HERO -->
 <div class="hero">
@@ -736,13 +751,15 @@
 <div class="cta-section">
   <div>
     <div class="section-eyebrow">Pilot programme</div>
-    <h2>Now onboarding our first two lenders</h2>
+    <h2>Now accepting pilot applications</h2>
   </div>
   <div class="cta-right">
     <p>
-      Three-month pilot at no cost, with no commitment beyond the pilot period.
-      Your data is never shared with competing lenders. If the signal does not
-      reduce your default rate on flagged applicants, you walk away having lost nothing.
+      Sarafi's pilot programme is open to a limited number of digital lenders.
+      Participants receive full API access at no cost for three months, with no
+      commitment beyond the pilot period. Your data is never shared with other
+      lenders in the network. If the signal does not reduce your default rate
+      on flagged applicants, you walk away having lost nothing.
     </p>
     <a href="mailto:hello@sarafi.ng" class="btn-primary">Request pilot access</a>
     <div class="cta-note">Or write to us directly at hello@sarafi.ng</div>
@@ -755,6 +772,8 @@
   <p>Credit intelligence infrastructure for Nigerian digital lenders.</p>
   <p>Built in Nigeria &nbsp;&middot;&nbsp; &copy; 2026 Sarafi</p>
 </footer>
+
+</div><!-- end page-wrap -->
 
 </body>
 </html>
