@@ -599,14 +599,25 @@
       </div>
       <div class="api-body">
         <span class="json-pun">{</span><br/>
-        &nbsp;&nbsp;<span class="json-key">"is_flagged"</span><span class="json-pun">: </span><span class="json-true">true</span><span class="json-pun">,</span><br/>
-        &nbsp;&nbsp;<span class="json-key">"flag_count"</span><span class="json-pun">: </span><span class="json-num">2</span><span class="json-pun">,</span><br/>
-        &nbsp;&nbsp;<span class="json-key">"lender_count"</span><span class="json-pun">: </span><span class="json-num">2</span><span class="json-pun">,</span><br/>
-        &nbsp;&nbsp;<span class="json-key">"has_active_loan"</span><span class="json-pun">: </span><span class="json-true">true</span><span class="json-pun">,</span><br/>
-        &nbsp;&nbsp;<span class="json-key">"has_default"</span><span class="json-pun">: </span><span class="json-true">true</span><span class="json-pun">,</span><br/>
-        &nbsp;&nbsp;<span class="json-key">"resolved_loans"</span><span class="json-pun">: </span><span class="json-num">1</span><span class="json-pun">,</span><br/>
-        &nbsp;&nbsp;<span class="json-key">"days_since_last_flag"</span><span class="json-pun">: </span><span class="json-num">3</span><span class="json-pun">,</span><br/>
-        &nbsp;&nbsp;<span class="json-key">"checked_at"</span><span class="json-pun">: </span><span class="json-str">"2026-07-20T10:31:04Z"</span><br/>
+        &nbsp;&nbsp;<span class="json-key">"checked_at"</span><span class="json-pun">: </span><span class="json-str">"2026-07-20T10:31:04Z"</span><span class="json-pun">,</span><br/>
+        &nbsp;&nbsp;<span class="json-key">"current_exposure"</span><span class="json-pun">: {</span><br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"is_flagged"</span><span class="json-pun">: </span><span class="json-true">true</span><span class="json-pun">,</span><br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"open_loans"</span><span class="json-pun">: </span><span class="json-num">2</span><span class="json-pun">,</span><br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"open_loan_sources"</span><span class="json-pun">: </span><span class="json-num">2</span><span class="json-pun">,</span><br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"delinquencies"</span><span class="json-pun">: </span><span class="json-num">1</span><span class="json-pun">,</span><br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"delinquency_sources"</span><span class="json-pun">: </span><span class="json-num">1</span><span class="json-pun">,</span><br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"total_flags"</span><span class="json-pun">: </span><span class="json-num">3</span><span class="json-pun">,</span><br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"reporting_lenders"</span><span class="json-pun">: </span><span class="json-num">2</span><br/>
+        &nbsp;&nbsp;<span class="json-pun">},</span><br/>
+        &nbsp;&nbsp;<span class="json-key">"history"</span><span class="json-pun">: {</span><br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"repaid_loans"</span><span class="json-pun">: </span><span class="json-num">4</span><span class="json-pun">,</span><br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"lifetime_delinquencies"</span><span class="json-pun">: </span><span class="json-num">1</span><span class="json-pun">,</span><br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"days_in_network"</span><span class="json-pun">: </span><span class="json-num">420</span><br/>
+        &nbsp;&nbsp;<span class="json-pun">},</span><br/>
+        &nbsp;&nbsp;<span class="json-key">"network_activity"</span><span class="json-pun">: {</span><br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"inquiries_last_7_days"</span><span class="json-pun">: </span><span class="json-num">4</span><span class="json-pun">,</span><br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"inquiries_last_30_days"</span><span class="json-pun">: </span><span class="json-num">6</span><br/>
+        &nbsp;&nbsp;<span class="json-pun">}</span><br/>
         <span class="json-pun">}</span>
       </div>
     </div>
@@ -645,7 +656,7 @@
     <div class="step">
       <div class="step-num">01</div>
       <h3>Integrate once</h3>
-      <p>One REST endpoint. One API key. Full documentation and a live test environment available at api.sarafi.ng/docs. No proprietary SDK or special tooling required.</p>
+      <p>One REST endpoint. One API key. Full documentation available at api.sarafi.ng/docs. No proprietary SDK or special tooling required.</p>
     </div>
     <div class="step">
       <div class="step-num">02</div>
@@ -700,7 +711,7 @@
     </div>
     <div class="why-item">
       <h3>Minimal engineering lift</h3>
-      <p>A standard REST API with full documentation and a live test environment. The integration surface is a single endpoint with a straightforward JSON request and response.</p>
+      <p>A standard REST API with full documentation. The integration surface is a single endpoint with a straightforward JSON request and response.</p>
     </div>
   </div>
 </div>
