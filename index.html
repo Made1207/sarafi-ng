@@ -560,55 +560,61 @@
   </style>
 </head>
 <script>
-  /* ─── MAINTENANCE MODE ───────────────────────────────────────────────
-     Set SITE_LIVE = false to show the maintenance page.
-     Set SITE_LIVE = true  to show the normal website.
-     This is the only line you need to change.                          */
-  const SITE_LIVE = false;
-  /* ─────────────────────────────────────────────────────────────────── */
+  const MAINTENANCE_HTML = `
+    <div style="
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: #0B1120;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      color: #E8E4DC;
+      text-align: center;
+      padding: 40px 24px;
+    ">
+      <div style="font-size:20px;font-weight:600;letter-spacing:0.08em;color:#C4A882;margin-bottom:48px;">
+        Sarafi
+      </div>
+      <h1 style="font-size:clamp(32px,6vw,56px);font-weight:500;color:#FFFFFF; letter-spacing:-0.02em;margin:0 0 20px;line-height:1.15;">
+        Coming soon.
+      </h1>
+      <p style="font-size:18px;font-weight:300;color:#9B9B8C;max-width:480px;line-height:1.7;margin:0 0 48px;">
+        We are currently in registration and will be accepting pilot applications shortly.
+      </p>
+      <a href="mailto:hello@sarafi.ng" style="
+        display:inline-block;
+        padding:14px 32px;
+        background: transparent;
+        border: 1px solid #C4A882;
+        color: #FFFFFF;
+        font-family: inherit;
+        font-size: 14px;
+        font-weight: 400;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        text-decoration: none;
+        cursor: pointer;
+      ">Get in touch</a>
+    </div>
+  `;
 
-  if (!SITE_LIVE) {
-    document.addEventListener("DOMContentLoaded", function () {
-      document.body.innerHTML = `
-        <div style="
-          min-height: 100vh;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          background: #0B1120;
-          font-family: 'Cormorant Garamond', Georgia, serif;
-          color: #E8E4DC;
-          text-align: center;
-          padding: 40px 24px;
-        ">
-          <div style="font-size:20px;font-weight:600;letter-spacing:0.08em;color:#C4A882;margin-bottom:48px;">
-            Sarafi
-          </div>
-          <h1 style="font-size:clamp(32px,6vw,56px);font-weight:500;letter-spacing:-0.02em;color:#FFFFFF;margin:0 0 20px;line-height:1.15;">
-            Coming soon.
-          </h1>
-          <p style="font-size:18px;font-weight:300;color:#FFFFFF;max-width:480px;line-height:1.7;margin:0 0 48px;">
-            Sarafi is currently in registration and will be accepting pilot applications shortly.
-          </p>
-          <a href="mailto:hello@sarafi.ng" style="
-            display:inline-block;
-            padding:14px 32px;
-            background: transparent;
-            border: 1px solid #FFFFFF;
-            color: #FFFFFF;
-            font-family: inherit;
-            font-size: 14px;
-            font-weight: 400;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            text-decoration: none;
-            cursor: pointer;
-          ">Get in touch</a>
-        </div>
-      `;
+  // Hide body immediately — show nothing until status is confirmed
+  document.documentElement.style.visibility = "hidden";
+
+  fetch("https://api.sarafi.ng/v1/site-status")
+    .then(r => r.json())
+    .then(data => {
+      if (!data.site_live) {
+        document.body.innerHTML = MAINTENANCE_HTML;
+      }
+      document.documentElement.style.visibility = "";
+    })
+    .catch(() => {
+      // If the API is unreachable, show maintenance page as safe fallback
+      document.body.innerHTML = MAINTENANCE_HTML;
+      document.documentElement.style.visibility = "";
     });
-  }
 </script>
 <body>
 
